@@ -1,15 +1,30 @@
-#include "helper.h"
-#include "dynamic.h"
+#include "core.h"
 #include <iostream>
+
+bool Update(float dt)
+{ 
+
+	return false; 
+
+}
+
+void Draw(Core::Graphics& graphics) 
+{ 
+	graphics.SetBackgroundColor(RGB(rand() % 256, rand() % 256, rand() % 256));
+	for (int i = 0; i < 1000; i++) {
+		graphics.SetColor(RGB(rand() % 256, rand() % 256, rand() % 256));
+		graphics.DrawLine(static_cast<float>(rand() % 801), static_cast<float>(rand() % 601), static_cast<float>(rand() % 801), static_cast<float>(rand() % 601));
+	}
+}
 
 int main()
 {
-	std::cout << nc::sqr(5) << std::endl;
+	char name[] = "CSC196";
+	Core::Init(name, 800, 600);
+	Core::RegisterUpdateFn(Update);
+	Core::RegisterDrawFn(Draw);
 
-	nc::point p1(10, 10);
-	nc::point p2(10, 10);
-	nc::point p3 = p1 + p2;
-	std::cout << p3.x << " " << p3.y << std::endl;
 
-	system("pause");
+	Core::GameLoop();
+	Core::Shutdown();
 }
